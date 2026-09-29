@@ -1,0 +1,15 @@
+.headingStart {
+    font-family: sans-serif;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subheadingStart {
+    font-family: sans-serif;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
