@@ -1,17 +1,1125 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>WEB-Projekt</title>
-        <link rel="stylesheet" href="../src/css/style.css">
-    </head>
-    <body>
-        <div class="navbar">
-            <a href="#whoarewe">Who are we?</a>
-            <a href="#whatwedo">What do we do?</a>
-            <a href="#help">How can you help?</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contac us</a>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateo — Community-Driven Climate & Weather Platform</title>
+    <meta name="description" content="Democratizing hyper-local climate intelligence through open-source, resilient, crowdsourced weather infrastructure from urban centers to off-grid communities.">
+    <!-- Separate CSS file containing Tailwind CSS & custom banner background styles -->
+    <link rel="stylesheet" href="../src/css/style.css">
+    <!-- Google Fonts for crisp, modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group" id="brand-logo" aria-label="Mateo Home">
+                <span class="w-9 h-9 rounded-lg bg-gradient-to-tr from-slate-900 to-teal-800 text-white flex items-center justify-center font-bold text-sm tracking-wider shadow-xs group-hover:scale-105 transition-transform duration-200">
+                    M
+                </span>
+                <div class="flex flex-col">
+                    <span class="text-base font-bold text-slate-900 tracking-tight leading-tight">Mateo</span>
+                    <span class="text-[11px] text-teal-700 font-semibold tracking-wide uppercase leading-none">Weather Network</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-7" aria-label="Main Navigation">
+                <a href="#whoarewe" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Who are we?</a>
+                <a href="#whatwedo" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">What do we do?</a>
+                <a href="#topologies" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Topologies</a>
+                <a href="#data-quality" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Quality Control</a>
+                <a href="#help" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">How can you help?</a>
+                <a href="#faq" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">FAQ</a>
+                <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-xs">
+                    Deploy Station
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button type="button" id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
-    </body>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
+            <a href="#whoarewe" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Who are we?</a>
+            <a href="#whatwedo" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">What do we do?</a>
+            <a href="#topologies" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Hardware Topologies</a>
+            <a href="#data-quality" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Data Quality & QC</a>
+            <a href="#help" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">How can you help?</a>
+            <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">FAQ</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Contact & Deploy</a>
+            <div class="pt-2">
+                <a href="#contact" class="mobile-nav-link block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800">
+                    Join Network
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section with Background Banner -->
+        <!-- .hero-banner loads src/img/banner1.jpg defined in src/css/style.css -->
+        <section id="hero" class="hero-banner relative border-b border-slate-200/80 pt-20 pb-24 md:pt-28 md:pb-32 overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <!-- Pill Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs mb-8">
+                    <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+                    Open-Source & Resilient Climate Infrastructure
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6">
+                    Democratizing hyper-local climate intelligence for all.
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+                    Mateo is an end-to-end, resilient crowdsourced weather platform that bridges the gap between connected urban centers and off-grid, underserved agricultural regions.
+                </p>
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                    <a href="#topologies" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg text-base font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-xs">
+                        Explore Hardware Topologies
+                    </a>
+                    <a href="#data-quality" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg text-base font-semibold bg-white/90 text-slate-800 border border-slate-300 hover:bg-white transition-colors shadow-xs">
+                        View Zero-Trust QC Engine
+                    </a>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                    <div class="bg-white/90 backdrop-blur-xs p-5 rounded-xl border border-slate-200/90 shadow-xs text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-slate-900">40%+</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Global Pop. Underserved</div>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur-xs p-5 rounded-xl border border-slate-200/90 shadow-xs text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-teal-700">3 Tiers</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Modular Topologies</div>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur-xs p-5 rounded-xl border border-slate-200/90 shadow-xs text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-slate-900">0 Grid</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Solar &amp; Mesh Independent</div>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur-xs p-5 rounded-xl border border-slate-200/90 shadow-xs text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-amber-700">&lt;60s</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Anomaly Rejection</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Who Are We? (Mission & Problem Statement) -->
+        <section id="whoarewe" class="py-20 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Who are we?</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Solving meteorological blackouts through community resilience.
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        Accurate weather insights shouldn't be a privilege reserved for wealthy urban hubs. Mateo was founded to deliver dependable climate monitoring where traditional infrastructure fails.
+                    </p>
+                </div>
+
+                <!-- 3 Problem Statement Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <!-- Problem 1 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 transition-colors flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-md inline-block mb-4">CRITICAL GAP</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2.5">Meteorological Blackouts</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Over 40% of the world's population lives in areas lacking reliable weather monitoring. The absence of real-time climate data severely impairs crop yield, flash flood warnings, and frost defense.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-semibold text-slate-500">
+                            Impact: Smallholder farmers &amp; off-grid towns
+                        </div>
+                    </div>
+
+                    <!-- Problem 2 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 transition-colors flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md inline-block mb-4">COST BARRIER</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2.5">Prohibitive Infrastructure</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Commercial-grade weather stations cost between $5,000 and $20,000 per unit, demanding dedicated power, specialized installation crews, and costly recurring cellular contracts.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-semibold text-slate-500">
+                            Solution: Modular sub-$100 open hardware
+                        </div>
+                    </div>
+
+                    <!-- Problem 3 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 transition-colors flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md inline-block mb-4">TRUST &amp; INTEGRITY</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2.5">Crowdsourced Data Noise</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Existing hobbyist networks suffer from direct sunlight heating, uncalibrated drift, and poor placement, destroying credibility for high-stakes municipal and agricultural decision-making.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-semibold text-slate-500">
+                            Solution: Multi-tier Zero-Trust QC engine
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission & Core Values Banner -->
+                <div class="p-8 rounded-2xl border border-slate-200 bg-white shadow-xs">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-8">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Our Core Mission</span>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
+                                Resilient hardware, zero-trust software, and community ownership.
+                            </h3>
+                            <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                By combining low-cost microcontrollers with edge-power management, long-range mesh networking, and spatial quality control, Mateo delivers verified environmental insights without relying on the power grid or cellular telecom.
+                            </p>
+                        </div>
+                        <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+                            <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+                                <span class="font-bold text-slate-900 block mb-0.5">100% Open-Source Core</span>
+                                <span class="text-slate-500">KiCad hardware schematics &amp; firmware</span>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+                                <span class="font-bold text-slate-900 block mb-0.5">Zero-Dependency Off-Grid</span>
+                                <span class="text-slate-500">Solar-powered P2P mesh &amp; local portals</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: What Do We Do? (Product & Hardware Ecosystem) -->
+        <section id="whatwedo" class="py-20 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">What do we do?</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        An end-to-end hardware &amp; software platform.
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        We design open-source weather sensor hardware, deploy autonomous mesh hubs, and operate a centralized validation pipeline that outputs research-grade climate telemetry.
+                    </p>
+                </div>
+
+                <!-- Architecture Overview Diagram Card -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs mb-14">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">System Topology</span>
+                            <h3 class="text-lg font-bold text-slate-900">Unified Ingestion &amp; Distribution Architecture</h3>
+                        </div>
+                        <span class="text-xs font-mono bg-slate-100 text-slate-700 px-3 py-1 rounded-md self-start sm:self-auto">
+                            TimescaleDB · Spatial IDW · SQI Engine
+                        </span>
+                    </div>
+
+                    <!-- Clean Responsive Diagram -->
+                    <div class="mt-6 overflow-x-auto">
+                        <pre class="ascii-diagram p-5 bg-slate-900 text-slate-200 rounded-xl overflow-x-auto text-xs leading-relaxed">
+                  ┌──────────────────────────────────────────────┐
+                  │              Mateo Cloud Engine              │
+                  │  (TimescaleDB + Spatial IDW + SQI Engine)    │
+                  └──────────────────────┬───────────────────────┘
+                                         │
+        ┌────────────────────────────────┼────────────────────────────────┐
+        │ (TLS / HMAC)                   │ (Mains Bridge)                 │ (Delay-Tolerant Sync)
+        ▼                                ▼                                ▼
+┌──────────────────────┐      ┌──────────────────────┐      ┌──────────────────────┐
+│ Topology 1: Urban    │      │ Topology 2: Suburban │      │ Topology 3: Off-Grid │
+│ ESP32-C6 (Wi-Fi 6)   │      │ Home Deck + LoRa     │      │ Autonomous Mesh Hub  │
+│ TWT Deep Sleep Mode  │      │ Local MQTT + SD CSV  │      │ Captive Wi-Fi AP     │
+└──────────────────────┘      └──────────────────────┘      └──────────────────────┘</pre>
+                    </div>
+                </div>
+
+                <!-- Section 3: The 3 Hardware Topologies -->
+                <div id="topologies" class="pt-6">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1">Hardware Strategy</span>
+                            <h3 class="text-2xl font-bold text-slate-900">Three Tailored Deployment Topologies</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 sm:mt-0 font-medium">Engineered for diverse connectivity and power constraints</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Topology 1 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 p-7 shadow-xs hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md">TOPOLOGY 1</span>
+                                    <span class="text-xs font-mono text-slate-400">Wi-Fi 6 / Urban</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-slate-900 mb-2">Standalone Wi-Fi 6</h4>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Urban Edge &amp; High-Density Centers</p>
+                                
+                                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                    Powered by an ESP32-C6 utilizing Target Wake Time (TWT) protocols to achieve micro-amp deep sleep states between 15-millisecond transmission bursts.
+                                </p>
+
+                                <div class="space-y-3 pt-4 border-t border-slate-100 text-xs text-slate-600">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Power:</strong> Single-cell 3.2V LiFePO₄ with TP5000 solar charging</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Thermal Isolation:</strong> MOSFET duty-cycling isolates air quality heaters (MQ-135) to prevent temperature drift</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Telemetry:</strong> TLS encrypted MQTT directly to global cloud</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-slate-700">
+                                Target: Urban apartments, balconies, smart cities
+                            </div>
+                        </div>
+
+                        <!-- Topology 2 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 p-7 shadow-xs hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs font-bold text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-md">TOPOLOGY 2</span>
+                                    <span class="text-xs font-mono text-slate-400">Sub-GHz / Home</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-slate-900 mb-2">Sub-GHz + Home Deck</h4>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Suburban &amp; Residential Farms</p>
+                                
+                                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                    A two-node architecture: outdoor mast node (ESP32-C3 + SX1262 LoRa with Slotted TDMA) transmitting to an indoor ESP32-S3 "Home Deck" hub.
+                                </p>
+
+                                <div class="space-y-3 pt-4 border-t border-slate-100 text-xs text-slate-600">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Local Portal:</strong> Built-in web dashboard at <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-800">http://homedeck.local</code></span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Home Automation:</strong> Native Home Assistant MQTT auto-discovery</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Offline Resilience:</strong> MicroSD FAT32 logging with automatic corruption recovery</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-slate-700">
+                                Target: Homesteads, community schools, perimeter gardens
+                            </div>
+                        </div>
+
+                        <!-- Topology 3 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 p-7 shadow-xs hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">TOPOLOGY 3</span>
+                                    <span class="text-xs font-mono text-slate-400">Off-Grid / Mesh</span>
+                                </div>
+                                <h4 class="text-xl font-bold text-slate-900 mb-2">Autonomous Mesh Hub</h4>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Remote &amp; Underserved Regions</p>
+                                
+                                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                    Multi-hop peer-to-peer LoRa mesh nodes operating on ISM bands (868/915MHz) using bit-packed binary C-struct payloads for minimal airtime.
+                                </p>
+
+                                <div class="space-y-3 pt-4 border-t border-slate-100 text-xs text-slate-600">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Community Solar Kiosk:</strong> Captive Wi-Fi AP at <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-800">http://community.weather</code> (free for smartphones)</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>Zero Cellular Dependency:</strong> Residents view frost alerts and soil moisture without mobile data</span>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-teal-600 font-bold">•</span>
+                                        <span><strong>DTN Sync:</strong> Delay-Tolerant Networking batches data via field workers' passing devices</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-slate-700">
+                                Target: Rural smallholders, off-grid villages, remote valleys
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Data Quality & Software Architecture -->
+        <section id="data-quality" class="py-20 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Zero-Trust Architecture</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Multi-tier Quality Control (QC) &amp; SQI Engine.
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        Raw sensor data cannot be blindly trusted. Every incoming packet undergoes three automated validation stages before being written to our core TimescaleDB climate repository.
+                    </p>
+                </div>
+
+                <!-- 3 QC Stages Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+                    <!-- Stage 1 -->
+                    <div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold font-mono">1</span>
+                            <h3 class="text-base font-bold text-slate-900">Physical Boundary Checks</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Drops impossible environmental readings outside physical survival boundaries before entering any database.
+                        </p>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 font-mono text-xs text-slate-700 space-y-1">
+                            <div>• Pressure &lt; 800 hPa &rarr; <span class="text-rose-600 font-bold">REJECT</span></div>
+                            <div>• Temperature &gt; 60°C &rarr; <span class="text-rose-600 font-bold">REJECT</span></div>
+                            <div>• Humidity &lt; 0% or &gt; 100% &rarr; <span class="text-rose-600 font-bold">DROP</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold font-mono">2</span>
+                            <h3 class="text-base font-bold text-slate-900">Temporal Rate-of-Change</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Identifies and rejects abrupt artificial spikes caused by sudden direct sunlight exposure, drafts, or hardware glitches.
+                        </p>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 font-mono text-xs text-slate-700 space-y-1">
+                            <div>• &Delta;T &gt; 3.0°C in &lt; 60s &rarr; <span class="text-amber-600 font-bold">SPIKE FLAGGED</span></div>
+                            <div>• Unnatural barometric jumps &rarr; <span class="text-amber-600 font-bold">ISOLATED</span></div>
+                            <div>• Transient heater bleed &rarr; <span class="text-amber-600 font-bold">FILTERED</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="p-6 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold font-mono">3</span>
+                            <h3 class="text-base font-bold text-slate-900">Spatial IDW Validation</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Inverse Distance Weighting validates each sensor against its N nearest neighbors within a 25km radius.
+                        </p>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 font-mono text-xs text-slate-700 space-y-1">
+                            <div>• Radius: 25 km neighborhood</div>
+                            <div>• Anomaly Threshold: &gt; 3.0 &sigma;</div>
+                            <div>• Action: Station SQI penalty &amp; de-weight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Station Quality Index & Zambretti Box -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+                    <div class="p-7 rounded-xl border border-slate-200 bg-white shadow-xs">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-bold text-slate-900">Station Quality Index (SQI)</h3>
+                            <span class="text-xs font-mono font-bold bg-teal-50 text-teal-800 px-2.5 py-1 rounded">Score: 0% – 100%</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Every station in the network receives a dynamic SQI score. Clean, timely data and consistent uptime elevate the station's trustworthiness.
+                        </p>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">&ge; 80% SQI: Platinum Node</span>
+                                <span class="text-emerald-700 font-semibold">Primary NWP Modeling</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">60% – 79% SQI: Standard Node</span>
+                                <span class="text-slate-700 font-semibold">Included in Public Map</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">&lt; 60% SQI: Demoted Node</span>
+                                <span class="text-rose-700 font-semibold">Hidden from Global Feed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-7 rounded-xl border border-slate-200 bg-white shadow-xs">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-bold text-slate-900">Hyper-Local Zambretti Forecasting</h3>
+                            <span class="text-xs font-mono font-bold bg-indigo-50 text-indigo-800 px-2.5 py-1 rounded">dp/dt Tendency</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Rather than relying only on coarse numerical weather prediction grids (10-25km cells), nodes execute the localized Zambretti algorithm on 3-hour barometric tendencies.
+                        </p>
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Calculates micro-trend</span>
+                                <span class="font-mono text-slate-800">dp/dt (3h delta)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Wind sector factoring</span>
+                                <span class="font-mono text-slate-800">Bearing + Seasonal Index</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Prediction Horizon</span>
+                                <span class="text-indigo-700 font-semibold">6 – 12 Hour Hyper-Local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive QC Pipeline Simulator (Pure Client-Side JS) -->
+                <div class="p-7 sm:p-8 rounded-2xl border border-slate-300 bg-slate-50/90">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Interactive Demonstration</span>
+                            <h3 class="text-lg font-bold text-slate-900">Test the Zero-Trust Validation Pipeline</h3>
+                            <p class="text-xs text-slate-500">Run simulated station packets through the 3-stage validation pipeline to observe how the SQI engine responds in real-time.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" id="sim-valid-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+                                Valid Reading
+                            </button>
+                            <button type="button" id="sim-spike-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-colors">
+                                Sunlight Spike (+5°C/min)
+                            </button>
+                            <button type="button" id="sim-extreme-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 text-white hover:bg-rose-700 transition-colors">
+                                Extreme Sensor Fault (75°C)
+                            </button>
+                            <button type="button" id="sim-spatial-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
+                                Spatial Anomaly (&gt;3&sigma;)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Output Box -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200">
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 pb-4 border-b border-slate-100 text-xs">
+                            <div>
+                                <span class="text-slate-400 block font-mono">SIMULATED NODE</span>
+                                <span class="font-bold text-slate-800" id="sim-node-id">ESP32-C6-7A4B</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-mono">INCOMING TELEMETRY</span>
+                                <span class="font-bold text-slate-800" id="sim-telemetry">22.4°C · 1013.8 hPa · 54% RH</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-mono">PIPELINE VERDICT</span>
+                                <span class="font-bold text-emerald-600" id="sim-verdict">STAGE 3 PASSED &amp; WRITTEN</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-mono">STATION SQI SCORE</span>
+                                <span class="font-bold text-slate-900 text-sm" id="sim-sqi">98% (Platinum)</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 text-xs font-mono text-slate-600 leading-relaxed" id="sim-log">
+                            [QC-Stage-1] Boundaries verified (Temp: 22.4°C &lt; 60°C, Press: 1013.8 hPa &gt; 800 hPa). PASS.<br>
+                            [QC-Stage-2] Temporal rate-of-change check: &Delta;T = +0.18°C over 60s (&lt; 3.0°C threshold). PASS.<br>
+                            [QC-Stage-3] Spatial IDW against 6 neighbor stations within 25km: Residual = 0.42&sigma; (&lt; 3.0&sigma;). PASS.<br>
+                            [TimescaleDB] Committed to hypertables. Hyper-local forecast updated: "Fair weather, stable barometric tendency."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner Accent Strip: Climate Quote with Background Banner -->
+        <!-- .banner-strip uses background image src/img/banner1.jpg defined in src/css/style.css -->
+        <section class="banner-strip py-16 border-b border-slate-200 text-center relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <blockquote class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-3">
+                    “Reliable weather data is not a luxury — it is the first line of defense for agricultural food security and human climate adaptation.”
+                </blockquote>
+                <cite class="text-xs uppercase tracking-wider font-bold text-teal-800 not-italic">
+                    — Mateo Network Mission Charter · Open Science Foundation
+                </cite>
+            </div>
+        </section>
+
+        <!-- Section 4: Commercial & Sustainability Model -->
+        <section id="ecosystem" class="py-20 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Sustainable Architecture</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Balancing open-source public good with economic durability.
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        To remain resilient without relying on unpredictable grants, Mateo pairs an unrestricted open-source core with enterprise data services.
+                    </p>
+                </div>
+
+                <!-- 2-Tier Model Comparison Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <!-- Open-Source Core -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2.5 py-1 rounded-md">FREE &amp; UNRESTRICTED</span>
+                                <span class="text-xs font-mono text-slate-400">Open Public Good</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Open-Source Core</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Everything required to build, host, and self-operate your personal station or community network is completely free under open licenses.
+                            </p>
+                            <ul class="space-y-3 text-xs text-slate-700">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Open Hardware Schematics:</strong> KiCad files, Gerber specs, 3D printable Stevenson screens</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Free Public Map Access:</strong> Community weather map and open raw data downloads</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Self-Hosted Local Software:</strong> ESP32 firmware, Home Deck portal, and Home Assistant MQTT</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Personal Dashboard:</strong> Live local soil metrics and frost warning displays</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-slate-100">
+                            <a href="https://github.com/FilipVastl005/WEB-Projekt" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                                View GitHub Repository &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Commercial & Enterprise -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-800 bg-slate-100 px-2.5 py-1 rounded-md">REVENUE GENERATING</span>
+                                <span class="text-xs font-mono text-slate-400">Enterprise &amp; B2B</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Enterprise &amp; NGO Services</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Commercial agreements fund continuous cloud operations, hardware certification, and deployments in high-need developing territories.
+                            </p>
+                            <ul class="space-y-3 text-xs text-slate-700">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>High-Frequency API (B2B):</strong> Low-latency streaming for agritech, logistics, and insurance modeling</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Turnkey NGO Deployments:</strong> Pre-flashed mesh kits and operator training for relief agencies</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>Certified Hardware Kits:</strong> Weatherized Stevenson assemblies with pre-calibrated sensors</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    <span><strong>SLA-Backed Analytics:</strong> Guaranteed uptime and dedicated hyper-local climate risk audits</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-8 pt-4 border-t border-slate-100">
+                            <a href="#contact" class="text-xs font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                                Inquire about Enterprise API &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Stakeholders Grid -->
+                <div class="max-w-3xl mb-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1">Target Beneficiaries</span>
+                    <h3 class="text-2xl font-bold text-slate-900">Who We Build For</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                        <div class="text-base font-bold text-slate-900 mb-1.5">Smallholder Farmers</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Hyper-local frost warnings, soil moisture metrics, and micro-precipitation tracking to safeguard harvest yields without cellular data fees.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                        <div class="text-base font-bold text-slate-900 mb-1.5">Civic Hackers &amp; Makers</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Open-hardware enthusiasts, weather observers, and smart-home integrators building low-power sensor nodes.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                        <div class="text-base font-bold text-slate-900 mb-1.5">Humanitarian NGOs</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Disaster response groups operating in infrastructure-scarce zones requiring zero-dependency local weather monitoring and alert networks.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                        <div class="text-base font-bold text-slate-900 mb-1.5">Smart Municipalities</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Urban planning boards seeking hyper-local urban heat island mapping and flash flood detection without proprietary contracts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: How Can You Help? (Original Nav Item Maintained) -->
+        <section id="help" class="py-20 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-3xl mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">How can you help?</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Join the decentralized climate monitoring movement.
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        A resilient network relies on community participation. Here are three straightforward ways you can contribute today.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Action 1 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center mb-6">
+                                01
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Host a Sensor Station</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Have an outdoor roof, balcony, farm fence, or school garden? Build or purchase a certified kit and expand coverage in your neighborhood.
+                            </p>
+                        </div>
+                        <a href="#contact" class="inline-flex items-center text-sm font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                            Register a Station &rarr;
+                        </a>
+                    </div>
+
+                    <!-- Action 2 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center mb-6">
+                                02
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Deploy an Off-Grid Hub</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Partner with local agricultural cooperatives or schools to set up solar-powered mesh kiosks with captive Wi-Fi portals for rural communities.
+                            </p>
+                        </div>
+                        <a href="#contact" class="inline-flex items-center text-sm font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                            Request Hub Assistance &rarr;
+                        </a>
+                    </div>
+
+                    <!-- Action 3 -->
+                    <div class="p-7 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center mb-6">
+                                03
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Contribute Code &amp; Hardware</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Help refine our KiCad PCB layouts, write drivers for new low-power sensors, or improve spatial anomaly detection algorithms on GitHub.
+                            </p>
+                        </div>
+                        <a href="https://github.com/FilipVastl005/WEB-Projekt" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                            Contribute on GitHub &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: FAQ (Frequently Asked Questions) -->
+        <section id="faq" class="py-20 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">FAQ</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Frequently asked questions.
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Technical, logistical, and architectural answers regarding the Mateo platform.
+                    </p>
+                </div>
+
+                <!-- Modern Accessible Accordion using <details name="faq-group"> -->
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 transition-colors" name="faq-group" open>
+                        <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                            <span class="text-base font-bold text-slate-900">How do off-grid communities access data without cellular signal?</span>
+                            <span class="faq-icon ml-4 shrink-0 transition-transform duration-200 text-slate-400 group-hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                            Topology 3 uses a solar-powered community hub that broadcasts a captive Wi-Fi portal (<code>http://community.weather</code>). Anyone nearby can connect with any standard smartphone to check hyper-local frost predictions, barometric pressure, and soil telemetry completely free without SIM cards or cellular data.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 transition-colors" name="faq-group">
+                        <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                            <span class="text-base font-bold text-slate-900">How does Mateo prevent sensor heating and inaccurate readings?</span>
+                            <span class="faq-icon ml-4 shrink-0 transition-transform duration-200 text-slate-400 group-hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                            We tackle this both in hardware and software. At the hardware level, high-draw sensor heaters (like MQ-135 air quality elements) are physically isolated on separate PCB traces with MOSFET duty-cycling to prevent thermal bleed into the ambient temperature chamber. In software, our Stage 2 temporal filter detects artificial spikes (&gt;3°C in under 60 seconds) typically caused by direct sunlight exposure.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 transition-colors" name="faq-group">
+                        <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                            <span class="text-base font-bold text-slate-900">What happens when internet connection is lost on a suburban Home Deck?</span>
+                            <span class="faq-icon ml-4 shrink-0 transition-transform duration-200 text-slate-400 group-hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                            The indoor Home Deck node (ESP32-S3) maintains a local web server (<code>http://homedeck.local</code>) and automatically writes all readings to an onboard microSD card as CSV files. It features automated FAT32 corruption recovery and will automatically sync queued historical records once home internet is restored.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 transition-colors" name="faq-group">
+                        <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                            <span class="text-base font-bold text-slate-900">What is the Station Quality Index (SQI) and what causes demotion?</span>
+                            <span class="faq-icon ml-4 shrink-0 transition-transform duration-200 text-slate-400 group-hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                            The SQI is a real-time credibility metric (0% to 100%) computed for every station. Consistent uptime and spatially congruent readings increase the score. If a station consistently deviates by more than 3 standard deviations from its neighbors within a 25km radius, its SQI drops. Stations falling below 60% SQI are automatically suppressed from public maps and numerical forecasting models.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 5 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 transition-colors" name="faq-group">
+                        <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                            <span class="text-base font-bold text-slate-900">How can commercial organizations access the data stream?</span>
+                            <span class="faq-icon ml-4 shrink-0 transition-transform duration-200 text-slate-400 group-hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                            While individuals, researchers, and public users have free access to our standard web dashboards and historical data dumps, commercial partners (agribusinesses, solar plant operators, reinsurance firms) purchase high-frequency, low-latency API access with dedicated SLA guarantees to support risk modeling and asset operations.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Contact & Deploy Station -->
+        <section id="contact" class="py-20 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Left: Contact Details -->
+                    <div class="lg:col-span-5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Get Involved</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                            Connect with the Mateo Network.
+                        </h2>
+                        <p class="text-base text-slate-600 leading-relaxed mb-8">
+                            Whether you want to deploy a station, partner on a regional NGO pilot, or contribute to our open firmware, we'd love to hear from you.
+                        </p>
+
+                        <!-- Contact Info List -->
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
+                                    <svg class="w-5 h-5 text-teal-700" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">General Inquiries</span>
+                                    <a href="mailto:filip.vastl005@gmail.com" class="text-sm font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                                        filip.vastl005@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
+                                    <svg class="w-5 h-5 text-teal-700" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Open Network Coordination</span>
+                                    <span class="text-sm font-semibold text-slate-900">Distributed Global Community</span>
+                                    <span class="text-xs text-slate-500 block">Czech Republic Hub · Filip Vastl</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0">
+                                    <svg class="w-5 h-5 text-teal-700" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Source Code &amp; Hardware</span>
+                                    <a href="https://github.com/FilipVastl005/WEB-Projekt" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-slate-900 hover:text-teal-700 transition-colors">
+                                        github.com/FilipVastl005/WEB-Projekt
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Pure Frontend Station Registration Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-slate-50 p-8 sm:p-10 rounded-2xl border border-slate-200">
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Deploy or Host a Station</h3>
+                            <p class="text-sm text-slate-500 mb-6">Complete this initial interest form. All processing is executed client-side.</p>
+
+                            <form id="contact-form" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Name or Organization *</label>
+                                        <input type="text" id="name" name="name" required placeholder="Filip Vastl" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Contact Email *</label>
+                                        <input type="email" id="email" name="email" required placeholder="contact@example.org" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="topology" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Intended Topology</label>
+                                        <select id="topology" name="topology" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all bg-white">
+                                            <option value="topology-1">Topology 1: Urban Wi-Fi 6 (ESP32-C6)</option>
+                                            <option value="topology-2">Topology 2: Suburban Home Deck (LoRa)</option>
+                                            <option value="topology-3">Topology 3: Off-Grid Mesh Kiosk</option>
+                                            <option value="enterprise-api">Commercial / Enterprise API Access</option>
+                                            <option value="ngo-pilot">NGO / Relief Turnkey Deployment</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="location" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Deployment Region / Coordinates</label>
+                                        <input type="text" id="location" name="location" placeholder="e.g. South Moravia, Czechia" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Project Scope &amp; Notes *</label>
+                                    <textarea id="message" name="message" rows="4" required placeholder="Describe your environment (terrain, power availability, expected sensor needs)..." class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all resize-y"></textarea>
+                                </div>
+
+                                <div class="pt-2">
+                                    <button type="submit" id="submit-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-xs">
+                                        Submit Station Application
+                                    </button>
+                                </div>
+
+                                <!-- Pure Frontend Confirmation Message -->
+                                <div id="form-feedback" class="hidden p-4 rounded-lg text-sm font-medium"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Brand & Info -->
+                <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-xs">
+                        M
+                    </span>
+                    <span class="text-sm font-semibold text-slate-900">Mateo Network</span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-xs text-slate-500">Filip Vastl — WEB-Projekt</span>
+                </div>
+
+                <!-- Footer Navigation -->
+                <nav class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-medium">
+                    <a href="#whoarewe" class="hover:text-slate-900 transition-colors">Who are we?</a>
+                    <a href="#whatwedo" class="hover:text-slate-900 transition-colors">What do we do?</a>
+                    <a href="#topologies" class="hover:text-slate-900 transition-colors">Topologies</a>
+                    <a href="#data-quality" class="hover:text-slate-900 transition-colors">Quality Control</a>
+                    <a href="#help" class="hover:text-slate-900 transition-colors">How can you help?</a>
+                    <a href="#faq" class="hover:text-slate-900 transition-colors">FAQ</a>
+                    <a href="#contact" class="hover:text-slate-900 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Copyright -->
+                <div class="text-xs text-slate-400">
+                    &copy; 2026 Mateo Network. Open Hardware &amp; Public Good.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Pure Client-Side JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-icon-open');
+        const closeIcon = document.getElementById('menu-icon-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                if (isOpen) {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    openIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Close mobile menu on anchor click
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // Quality Control Pipeline Simulator
+        const simNodeId = document.getElementById('sim-node-id');
+        const simTelemetry = document.getElementById('sim-telemetry');
+        const simVerdict = document.getElementById('sim-verdict');
+        const simSqi = document.getElementById('sim-sqi');
+        const simLog = document.getElementById('sim-log');
+
+        const btnValid = document.getElementById('sim-valid-btn');
+        const btnSpike = document.getElementById('sim-spike-btn');
+        const btnExtreme = document.getElementById('sim-extreme-btn');
+        const btnSpatial = document.getElementById('sim-spatial-btn');
+
+        if (btnValid && btnSpike && btnExtreme && btnSpatial) {
+            btnValid.addEventListener('click', () => {
+                simNodeId.textContent = 'ESP32-C6-7A4B (Urban Edge)';
+                simTelemetry.textContent = '22.4°C · 1013.8 hPa · 54% RH';
+                simVerdict.textContent = 'STAGE 3 PASSED & COMMITTED';
+                simVerdict.className = 'font-bold text-emerald-600';
+                simSqi.textContent = '98% (Platinum)';
+                simLog.innerHTML = `[QC-Stage-1] Boundaries verified (Temp: 22.4°C &lt; 60°C, Press: 1013.8 hPa &gt; 800 hPa). PASS.<br>
+[QC-Stage-2] Temporal rate-of-change check: &Delta;T = +0.18°C over 60s (&lt; 3.0°C threshold). PASS.<br>
+[QC-Stage-3] Spatial IDW against 6 neighbor stations within 25km: Residual = 0.42&sigma; (&lt; 3.0&sigma;). PASS.<br>
+[TimescaleDB] Committed to hypertables. Hyper-local forecast updated: "Fair weather, stable barometric tendency."`;
+            });
+
+            btnSpike.addEventListener('click', () => {
+                simNodeId.textContent = 'ESP32-C3-921A (Suburban Mast)';
+                simTelemetry.textContent = '28.1°C (Jump from 22.9°C in 45s)';
+                simVerdict.textContent = 'REJECTED AT STAGE 2 (TEMPORAL SPIKE)';
+                simVerdict.className = 'font-bold text-amber-600';
+                simSqi.textContent = '84% (-2% penalty applied)';
+                simLog.innerHTML = `[QC-Stage-1] Boundaries verified (Temp: 28.1°C &lt; 60°C, Press: 1011.2 hPa). PASS.<br>
+[QC-Stage-2] Temporal check: &Delta;T = +5.20°C in 45 seconds (&gt; 3.0°C/min threshold). <span class="text-amber-600 font-bold">FAIL: SUDDEN THERMAL SPIKE</span>.<br>
+[Heuristics] Ingestion dropped reading. Cause: Likely direct solar ray hitting unshielded enclosure or transient air-quality heater bleed.<br>
+[Action] Reading quarantined. Database unpolluted.`;
+            });
+
+            btnExtreme.addEventListener('click', () => {
+                simNodeId.textContent = 'ESP32-S3-MESH-04 (Off-Grid Kiosk)';
+                simTelemetry.textContent = '76.8°C · 690.0 hPa (Corrupted)';
+                simVerdict.textContent = 'DROPPED AT STAGE 1 (PHYSICAL BOUNDARY)';
+                simVerdict.className = 'font-bold text-rose-600';
+                simSqi.textContent = '54% (Demoted from Public Map)';
+                simLog.innerHTML = `[QC-Stage-1] Physical Boundary Check: Temp = 76.8°C (&gt; 60.0°C survival limit), Pressure = 690.0 hPa (&lt; 800.0 hPa). <span class="text-rose-600 font-bold">FATAL OUT-OF-BOUNDS</span>.<br>
+[Action] Instant hardware drop. Packet excluded from calculation pipeline.<br>
+[SQI Engine] Station SQI reduced below 60%. Automatically hidden from global public map until 24 hours of valid packets resume.`;
+            });
+
+            btnSpatial.addEventListener('click', () => {
+                simNodeId.textContent = 'ESP32-C6-31F0 (Hilltop Station)';
+                simTelemetry.textContent = '14.1°C · 1008.2 hPa (Neighbors: ~21.5°C)';
+                simVerdict.textContent = 'FLAGGED AT STAGE 3 (SPATIAL IDW &gt; 3&sigma;)';
+                simVerdict.className = 'font-bold text-indigo-600';
+                simSqi.textContent = '72% (Standard Node)';
+                simLog.innerHTML = `[QC-Stage-1] Boundaries verified. PASS.<br>
+[QC-Stage-2] Temporal rate-of-change normal. PASS.<br>
+[QC-Stage-3] Spatial Inverse Distance Weighting: Expected local temperature = 21.2°C &plusmn; 1.4°C based on 5 stations within 25km. Residual = 4.12&sigma; (&gt; 3.0&sigma; threshold). <span class="text-indigo-600 font-bold">FLAGGED AS SPATIAL OUTLIER</span>.<br>
+[Action] Stored with ANOMALY_FLAG bit; excluded from regional NWP assimilation.`;
+            });
+        }
+
+        // Contact Form Client-Side Submission Demo (Zero Backend)
+        const contactForm = document.getElementById('contact-form');
+        const formFeedback = document.getElementById('form-feedback');
+
+        if (contactForm && formFeedback) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value.trim();
+                const topology = document.getElementById('topology').value;
+
+                formFeedback.className = 'p-4 rounded-lg text-sm font-medium bg-teal-50 text-teal-800 border border-teal-200 block';
+                formFeedback.textContent = `Thank you, ${name}! Your station application for ${topology} has been registered client-side. We will review your deployment coordinates shortly.`;
+
+                contactForm.reset();
+            });
+        }
+    </script>
+</body>
 </html>

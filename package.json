@@ -1,0 +1,25 @@
+{
+  "name": "web-projekt",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:css": "tailwindcss -i src/css/input.css -o src/css/style.css",
+    "watch:css": "tailwindcss -i src/css/input.css -o src/css/style.css --watch",
+    "build": "tailwindcss -i src/css/input.css -o src/css/style.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FilipVastl005/WEB-Projekt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FilipVastl005/WEB-Projekt/issues"
+  },
+  "homepage": "https://github.com/FilipVastl005/WEB-Projekt#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
