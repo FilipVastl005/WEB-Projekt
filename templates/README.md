@@ -24,6 +24,7 @@ A lightweight, modern web portfolio and technical landing page for **Mateo** (Co
 - [src/css/input.css](file:///c:/Users/filip/Documents/WEB-Projekt/src/css/input.css) — Source CSS importing Tailwind CSS and defining banner rules.
 - [src/css/style.css](file:///c:/Users/filip/Documents/WEB-Projekt/src/css/style.css) — Compiled separate CSS stylesheet linked in the HTML.
 - [src/img/banner1.jpg](file:///c:/Users/filip/Documents/WEB-Projekt/src/img/banner1.jpg) — Mountain banner background.
+- [src/img/mateologo.svg](file:///c:/Users/filip/Documents/WEB-Projekt/src/img/mateologo.svg) — Official Mateo company vector logo (used in navigation, footer, favicon, and project branding).
 
 ## Recompiling CSS
 ```bash
