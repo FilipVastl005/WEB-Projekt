@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Architecture & Deployment Manual — Mateo Network</title>
+    <meta name="description"
+        content="Exhaustive hardware specs, wiring diagrams, power physics, firmware setup, and 3D enclosure guidelines for Mateo weather station topologies.">
+    <!-- Favicon using official company SVG logo -->
+    <link rel="icon" type="image/svg+xml" href="../src/img/mateologo.svg">
+    <!-- Separate CSS file containing Tailwind CSS & custom banner background styles -->
+    <link rel="stylesheet" href="../src/css/style.css">
+    <!-- Google Fonts for crisp, modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .font-mono-code {
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- Top Navigation Header -->
+    <header
+        class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-3 group" id="brand-logo" aria-label="Mateo Home">
+                <img src="../src/img/mateologo.svg" alt="Mateo Logo"
+                    class="w-10 h-10 rounded-lg object-contain border border-slate-200/80 shadow-2xs group-hover:scale-105 transition-transform duration-200">
+                <div class="flex flex-col">
+                    <span class="text-base font-bold text-slate-900 tracking-tight leading-tight">Mateo</span>
+                    <span class="text-[11px] text-teal-700 font-semibold tracking-wide uppercase leading-none">Station
+                        Manual</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-6" aria-label="Main Navigation">
+                <a href="index.html"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">← Main Site</a>
+                <a href="#overview"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Overview</a>
+                <a href="#topologies-detail"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Topologies</a>
+                <a href="#wiring-specs"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Wiring &amp;
+                    Pinouts</a>
+                <a href="#enclosure-guide"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">3D Enclosures</a>
+                <a href="#provisioning-setup"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Setup Guide</a>
+                <a href="#calculator"
+                    class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solar Calc</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <a href="index.html#contact"
+                    class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-xs">
+                    Deploy Station
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button type="button" id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                    aria-expanded="false" aria-label="Toggle navigation menu">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
+            <a href="index.html"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">←
+                Back to Main Site</a>
+            <a href="#overview"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Overview</a>
+            <a href="#topologies-detail"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Hardware
+                Topologies</a>
+            <a href="#wiring-specs"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Wiring
+                &amp; Pinouts</a>
+            <a href="#enclosure-guide"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">3D
+                Printed Enclosures</a>
+            <a href="#provisioning-setup"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Provisioning
+                &amp; Setup</a>
+            <a href="#calculator"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Solar
+                &amp; Battery Calculator</a>
+            <a href="#troubleshooting"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50">Troubleshooting</a>
+            <div class="pt-2">
+                <a href="index.html#contact"
+                    class="mobile-nav-link block w-full text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800">
+                    Apply to Deploy
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="hero"
+            class="hero-banner relative border-b border-slate-200/80 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-3">Technical Reference
+                    &amp; Assembly</span>
+                <h1
+                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight mb-6">
+                    Mateo Weather Station Engineering Manual.
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+                    Everything you need to know to build, flash, wire, enclose, connect, and maintain Mateo stations
+                    across all 3 hardware topologies — from urban balconies to zero-grid off-grid villages.
+                </p>
+
+                <!-- Quick Navigation Jump Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto text-left">
+                    <a href="#topologies-detail"
+                        class="p-3.5 bg-white/90 backdrop-blur-xs rounded-xl border border-slate-200/90 shadow-2xs hover:border-teal-600 transition-colors">
+                        <span class="text-xs font-bold text-teal-800 block">01. Topologies</span>
+                        <span class="text-[11px] text-slate-500">Wi-Fi 6, LoRa, Mesh</span>
+                    </a>
+                    <a href="#wiring-specs"
+                        class="p-3.5 bg-white/90 backdrop-blur-xs rounded-xl border border-slate-200/90 shadow-2xs hover:border-teal-600 transition-colors">
+                        <span class="text-xs font-bold text-teal-800 block">02. Circuitry</span>
+                        <span class="text-[11px] text-slate-500">Schematics &amp; Pinouts</span>
+                    </a>
+                    <a href="#enclosure-guide"
+                        class="p-3.5 bg-white/90 backdrop-blur-xs rounded-xl border border-slate-200/90 shadow-2xs hover:border-teal-600 transition-colors">
+                        <span class="text-xs font-bold text-teal-800 block">03. Enclosures</span>
+                        <span class="text-[11px] text-slate-500">Stevenson 3D Models</span>
+                    </a>
+                    <a href="#provisioning-setup"
+                        class="p-3.5 bg-white/90 backdrop-blur-xs rounded-xl border border-slate-200/90 shadow-2xs hover:border-teal-600 transition-colors">
+                        <span class="text-xs font-bold text-teal-800 block">04. Firmware</span>
+                        <span class="text-[11px] text-slate-500">Flashing &amp; Pairing</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: System Overview & Core Electronics -->
+        <section id="overview" class="py-16 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Hardware
+                        Foundations</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">
+                        Core Electronics, Power Physics &amp; Sensors
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Mateo hardware is engineered for multi-year unattended operation in harsh atmospheric
+                        environments. Below is the master component specification shared across all station variants.
+                    </p>
+                </div>
+
+                <!-- Component Matrix Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <!-- Microcontrollers -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70">
+                        <span
+                            class="text-[11px] font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md uppercase tracking-wide inline-block mb-3">Compute
+                            Core</span>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">ESP32 MCU Family</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            We use standard Espressif SOCs: ESP32-C6 for Wi-Fi 6 / TWT, ESP32-C3 for Sub-GHz LoRa edge
+                            masts, and ESP32-S3 for Home Deck and Solar Hub servers.
+                        </p>
+                        <ul class="text-xs text-slate-600 space-y-1.5 font-mono">
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>ESP32-C6:</span>
+                                <span class="font-bold text-slate-800">Wi-Fi 6 + IEEE 802.15.4</span></li>
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>ESP32-C3:</span>
+                                <span class="font-bold text-slate-800">RISC-V 160MHz Low Power</span></li>
+                            <li class="flex justify-between pb-1"><span>ESP32-S3:</span> <span
+                                    class="font-bold text-slate-800">Dual-Core + Octal PSRAM</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Power Systems -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70">
+                        <span
+                            class="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md uppercase tracking-wide inline-block mb-3">Power
+                            Storage</span>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">LiFePO₄ &amp; TP5000 Solar</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Single-cell Lithium Iron Phosphate (LiFePO₄ 3.2V / 3.6V max) chemistry prevents thermal
+                            runaway during high ambient heat and survives over 2,000 charge cycles down to -20°C.
+                        </p>
+                        <ul class="text-xs text-slate-600 space-y-1.5 font-mono">
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>Cell Type:</span>
+                                <span class="font-bold text-slate-800">3.2V 18650 / 26650 LiFePO₄</span></li>
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>Charger IC:</span>
+                                <span class="font-bold text-slate-800">TP5000 (3.6V Cutoff)</span></li>
+                            <li class="flex justify-between pb-1"><span>Cutoff Guard:</span> <span
+                                    class="font-bold text-rose-700">&lt; 2.9V Deep Sleep</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Sensor Suite -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70">
+                        <span
+                            class="text-[11px] font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-md uppercase tracking-wide inline-block mb-3">Sensors</span>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Atmospheric Payload</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Precision Bosch BME280 handles barometric pressure, temperature, and relative humidity over
+                            I2C. Optional MQ-135 handles air quality index (AQI) with MOSFET power gating.
+                        </p>
+                        <ul class="text-xs text-slate-600 space-y-1.5 font-mono">
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>Pressure:</span>
+                                <span class="font-bold text-slate-800">BME280 (300-1100 hPa)</span></li>
+                            <li class="flex justify-between border-b border-slate-200/60 pb-1"><span>Temp/Hum:</span>
+                                <span class="font-bold text-slate-800">±0.5°C / ±3% RH</span></li>
+                            <li class="flex justify-between pb-1"><span>AQI Isolation:</span> <span
+                                    class="font-bold text-teal-700">MOSFET Heater Gating</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Thermal Physics Note Box -->
+                <div class="p-6 rounded-xl border border-amber-200 bg-amber-50/60 flex items-start gap-4">
+                    <div class="p-2 bg-amber-100 rounded-lg text-amber-800 shrink-0 mt-0.5">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                    </div>
+                    <div class="text-xs text-slate-700 leading-relaxed">
+                        <strong class="font-bold text-amber-900 block text-sm mb-1">Thermal Physics Requirement (Preventing MCU Self-Heating)</strong>
+                        On-board ESP32 RF transmitters (Wi-Fi/LoRa) generate momentary thermal spikes up to +4°C inside tiny enclosures. All Mateo firmware is hardcoded to <strong>sample the BME280 I2C bus immediately upon waking</strong> before initializing RF radios. Additionally, high-draw heaters like the MQ-135 (150mA draw) are powered strictly via an N-Channel MOSFET gate only when 5V USB/Solar auxiliary power is actively detected.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Comprehensive 3 Topologies Deep-Dive -->
+        <section id="topologies-detail" class="py-16 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Deployment
+                        Architectures</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">
+                        Deep-Dive into the 3 Station Topologies
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Each topology is specifically designed for a distinct physical environment, balancing network
+                        bandwidth, battery survival, and infrastructure independence.
+                    </p>
+                </div>
+
+                <div class="space-y-12">
+                    <!-- Topology 1 Detail -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                            <div>
+                                <span class="text-xs font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md uppercase tracking-wide">Topology 1</span>
+                                <h3 class="text-2xl font-bold text-slate-900 mt-2">Standalone Urban Wi-Fi 6 Station</h3>
+                                <p class="text-xs text-slate-500 font-medium">Urban rooftops, apartment balconies, smart city poles</p>
+                            </div>
+                            <div class="text-right font-mono text-xs text-slate-500">
+                                <span class="block text-slate-900 font-bold">ESP32-C6 SOC</span>
+                                <span>Wi-Fi 6 Target Wake Time (TWT)</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-6">
+                            <div class="lg:col-span-7 space-y-4 text-sm text-slate-600 leading-relaxed">
+                                <h4 class="font-bold text-slate-900 text-base">How It Works &amp; Power Dynamics</h4>
+                                <p>
+                                    Topology 1 connects directly to residential or municipal 2.4GHz Wi-Fi networks. Instead of remaining connected constantly (which drains 80mA+), the ESP32-C6 negotiates a <strong>Target Wake Time (TWT)</strong> schedule with the router.
+                                </p>
+                                <p>
+                                    The device stays in a deep sleep state drawing just <strong>7µA</strong>. Every 10 minutes, the internal RTC wakes the MCU, samples the BME280 sensor within 15ms, transmits a TLS/HMAC-signed JSON payload to the Mateo cloud API, and immediately returns to sleep.
+                                </p>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs font-mono space-y-1 text-slate-700">
+                                    <div>• Deep Sleep Current: 7 µA</div>
+                                    <div>• TX Burst Window: 15 ms @ 180 mA</div>
+                                    <div>• Average Power Draw: ~0.042 mW</div>
+                                    <div>• Expected Battery Life (No Sun): 180+ Days on 3000mAh LiFePO₄</div>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs flex flex-col justify-between">
+                                <div>
+                                    <span class="text-slate-400 block mb-2">// Ingestion Payload Structure (Wi-Fi 6)</span>
+                                    <pre class="text-teal-400 overflow-x-auto leading-tight">{
+  "mac": "70:04:1D:8B:2E:10",
+  "fw_ver": "2.4.1-c6",
+  "vbat_mv": 3312,
+  "telemetry": {
+    "temp_c": 21.84,
+    "humidity_pct": 48.2,
+    "pressure_hpa": 1014.25,
+    "aqi_raw": null
+  },
+  "hmac": "e3b0c44298fc1c149afbf4..."
+}</pre>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                                    Protocol: HTTPS POST / MQTT over TLS (Port 8883)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topology 2 Detail -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                            <div>
+                                <span class="text-xs font-bold text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-md uppercase tracking-wide">Topology 2</span>
+                                <h3 class="text-2xl font-bold text-slate-900 mt-2">Sub-GHz Wireless + Home Deck Hub</h3>
+                                <p class="text-xs text-slate-500 font-medium">Suburban properties, community gardens, local homesteads</p>
+                            </div>
+                            <div class="text-right font-mono text-xs text-slate-500">
+                                <span class="block text-slate-900 font-bold">Node A (Outdoor Mast) + Node B (Indoor Hub)</span>
+                                <span>868 MHz / 915 MHz LoRa Slotted TDMA</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            <div class="lg:col-span-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                                <h4 class="font-bold text-slate-900 text-base">Two-Node Architecture</h4>
+                                <ul class="space-y-3 text-xs text-slate-600">
+                                    <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <strong class="text-slate-900 block text-sm mb-1">Node A (Outdoor Mast Sensor)</strong>
+                                        ESP32-C3 + SX1262 LoRa module mounted on an elevated weather mast up to 2km away from the house. Runs strictly on solar power. Sleeps continuously using RTC timers and wakes every 5 minutes to listen for Node B's sync beacon.
+                                    </li>
+                                    <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                        <strong class="text-slate-900 block text-sm mb-1">Node B (Indoor Home Deck Hub)</strong>
+                                        ESP32-S3 hub plugged into home mains power with a local TFT screen. Broadcasts a beacon, receives Node A packets, logs CSV to microSD, auto-discovers with Home Assistant, and syncs data to the cloud.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="lg:col-span-6 space-y-4 text-sm text-slate-600 leading-relaxed">
+                                <h4 class="font-bold text-slate-900 text-base">Offline Resilience &amp; File Integrity</h4>
+                                <p>
+                                    If home internet disconnects, Node B serves a full local web interface at <code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800 font-mono">http://homedeck.local</code> directly over local Wi-Fi.
+                                </p>
+                                <p>
+                                    All telemetry is appended to an onboard microSD card in raw CSV format. The firmware implements a <strong>pre-allocated FAT32 block system</strong> to prevent MCU write-blocking or filesystem corruption if power is pulled during disk activity.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topology 3 Detail -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                            <div>
+                                <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md uppercase tracking-wide">Topology 3</span>
+                                <h3 class="text-2xl font-bold text-slate-900 mt-2">Autonomous Off-Grid Mesh Kiosk</h3>
+                                <p class="text-xs text-slate-500 font-medium">Off-grid villages, remote agricultural valleys, disaster response zones</p>
+                            </div>
+                            <div class="text-right font-mono text-xs text-slate-500">
+                                <span class="block text-slate-900 font-bold">Peer-to-Peer Sub-GHz Mesh</span>
+                                <span>Delay-Tolerant Networking (DTN)</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            <div class="lg:col-span-7 space-y-4 text-sm text-slate-600 leading-relaxed">
+                                <h4 class="font-bold text-slate-900 text-base">Zero-Grid Mesh Routing &amp; Captive Portal</h4>
+                                <p>
+                                    In regions completely lacking cellular towers or grid electricity, multiple Node A sensor units form a peer-to-peer LoRa mesh using CSMA/CA collision avoidance.
+                                </p>
+                                <p>
+                                    Telemetry routes across hops to a central <strong>Community Solar Kiosk</strong> (ESP32-S3 or Raspberry Pi Zero 2W). The kiosk hosts an open Wi-Fi Access Point (`http://community.weather`). Local villagers can connect using any mobile browser to inspect soil moisture, frost warnings, and local rainfall without needing mobile data.
+                                </p>
+                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+                                    <strong class="text-slate-900 font-bold block mb-1">Delay-Tolerant "Data Mule" Synchronization (DTN)</strong>
+                                    When visiting aid workers or agricultural inspectors pass near the Community Solar Hub, their phone automatically pulls encrypted historical CSV batches via the REST endpoint <code class="bg-white px-1 py-0.5 rounded border border-slate-200 font-mono">/api/v1/export/sync</code>. When the device returns to cellular range, it silently pushes the batch to the Mateo cloud.
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs">
+                                <span class="text-slate-400 block mb-2">// Compact Packed C-Struct Payload (18 Bytes Total)</span>
+                                <pre class="text-emerald-400 overflow-x-auto leading-tight">#pragma pack(push, 1)
+typedef struct {
+    uint16_t node_id;      // 2 Bytes
+    uint32_t timestamp;    // 4 Bytes
+    int16_t  temp_c_x100;  // 2 Bytes (-327.68 to 327.67)
+    uint16_t hum_pct_x100; // 2 Bytes (0.00 to 100.00)
+    uint16_t press_hpa_x10;// 2 Bytes (800.0 to 1200.0)
+    uint16_t vbat_mv;      // 2 Bytes (mV)
+    uint8_t  sqi_flags;    // 1 Byte
+    uint8_t  mesh_hops;    // 1 Byte
+    uint16_t crc16;        // 2 Bytes
+} MateoMeshPacket;
+#pragma pack(pop)</pre>
+                                <div class="mt-4 text-[11px] text-slate-400 leading-normal">
+                                    Minimizes LoRa airtime to &lt; 32ms at SF7/125kHz, preserving battery life and avoiding band congestion.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Pinouts & Electronics Matrix -->
+        <section id="wiring-specs" class="py-16 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Electrical Schematics</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">
+                        Microcontroller Pinout &amp; Wiring Specs
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Refer to this reference pin mapping when soldering custom proto-boards or designing custom KiCad PCBs.
+                    </p>
+                </div>
+
+                <!-- Comprehensive Pinout Table -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden mb-12">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-100/80 border-b border-slate-200 font-bold text-slate-800">
+                                    <th class="p-4">Target Component</th>
+                                    <th class="p-4">Interface Type</th>
+                                    <th class="p-4">ESP32-C6 Pin (Urban)</th>
+                                    <th class="p-4">ESP32-C3 Pin (LoRa Mast)</th>
+                                    <th class="p-4">ESP32-S3 Pin (Hub Kiosk)</th>
+                                    <th class="p-4">Notes / Pull-ups</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-mono text-slate-700">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">BME280 SDA</td>
+                                    <td class="p-4">I2C Data</td>
+                                    <td class="p-4 text-teal-700">GPIO 6</td>
+                                    <td class="p-4 text-teal-700">GPIO 4</td>
+                                    <td class="p-4 text-teal-700">GPIO 11</td>
+                                    <td class="p-4 font-sans text-slate-500">4.7kΩ pull-up to 3.3V</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">BME280 SCL</td>
+                                    <td class="p-4">I2C Clock</td>
+                                    <td class="p-4 text-teal-700">GPIO 7</td>
+                                    <td class="p-4 text-teal-700">GPIO 5</td>
+                                    <td class="p-4 text-teal-700">GPIO 12</td>
+                                    <td class="p-4 font-sans text-slate-500">4.7kΩ pull-up to 3.3V</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">SX1262 LoRa SCK/MISO/MOSI</td>
+                                    <td class="p-4">SPI Bus</td>
+                                    <td class="p-4 text-slate-400">N/A</td>
+                                    <td class="p-4 text-indigo-700">GPIO 8, 9, 10</td>
+                                    <td class="p-4 text-indigo-700">GPIO 12, 13, 11</td>
+                                    <td class="p-4 font-sans text-slate-500">Dedicated SPI Bus</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">SX1262 CS / DIO1 / BUSY</td>
+                                    <td class="p-4">GPIO / Interrupt</td>
+                                    <td class="p-4 text-slate-400">N/A</td>
+                                    <td class="p-4 text-indigo-700">GPIO 3, 2, 1</td>
+                                    <td class="p-4 text-indigo-700">GPIO 10, 14, 21</td>
+                                    <td class="p-4 font-sans text-slate-500">Hardware wake interrupt</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">MQ-135 Heater MOSFET Gate</td>
+                                    <td class="p-4">Digital Out</td>
+                                    <td class="p-4 text-amber-700">GPIO 15</td>
+                                    <td class="p-4 text-slate-400">N/A</td>
+                                    <td class="p-4 text-amber-700">GPIO 18</td>
+                                    <td class="p-4 font-sans text-slate-500">Controls 2N7002 N-MOSFET</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">5V Solar Sensing Interrupt</td>
+                                    <td class="p-4">ADC / Digital In</td>
+                                    <td class="p-4 text-amber-700">GPIO 2 (ADC1_CH1)</td>
+                                    <td class="p-4 text-amber-700">GPIO 0 (ADC1_CH0)</td>
+                                    <td class="p-4 text-amber-700">GPIO 1 (ADC1_CH0)</td>
+                                    <td class="p-4 font-sans text-slate-500">100k/10k voltage divider</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-900 font-sans">MicroSD Card CS (Home Deck)</td>
+                                    <td class="p-4">SPI CS</td>
+                                    <td class="p-4 text-slate-400">N/A</td>
+                                    <td class="p-4 text-slate-400">N/A</td>
+                                    <td class="p-4 text-slate-800">GPIO 42</td>
+                                    <td class="p-4 font-sans text-slate-500">FAT32 logging partition</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 3D Printed Stevenson Screen Enclosure Specifications -->
+        <section id="enclosure-guide" class="py-16 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Mechanical Engineering</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">
+                        3D Printable Louvered Stevenson Screen
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Exposing sensors to direct sunlight causes solar radiation errors exceeding +10°C. Mateo provides open-source STL files for a modular, louvered radiation shield.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <!-- Rule 1: Filament Selection -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                        <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 font-bold text-xs flex items-center justify-center mb-4">01</span>
+                        <h3 class="font-bold text-slate-900 text-base mb-2">Filament Selection</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            <strong>MUST use ASA or PETG filament in Signal White (RAL 9003)</strong>. Standard PLA deforms and warps under UV rays above 45°C. White color maximizes solar reflectance (>85%).
+                        </p>
+                    </div>
+
+                    <!-- Rule 2: Dual Chamber Separation -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                        <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 font-bold text-xs flex items-center justify-center mb-4">02</span>
+                        <h3 class="font-bold text-slate-900 text-base mb-2">Dual Chamber Isolation</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            The enclosure features an upper sealed IP65 compartment for the lithium battery/PCB and an isolated lower double-louvered chamber for the BME280 sensor to allow free airflow without radiant heating.
+                        </p>
+                    </div>
+
+                    <!-- Rule 3: Insect & Moisture Defense -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                        <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 font-bold text-xs flex items-center justify-center mb-4">03</span>
+                        <h3 class="font-bold text-slate-900 text-base mb-2">Mesh &amp; Gasket Seals</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Incorporate fine stainless-steel mesh (0.4mm wire gap) over louver intakes to prevent spiders and nesting insects from blocking sensors. Silicone O-rings seal the electronics box.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Step-by-Step Provisioning & Setup Guide -->
+        <section id="provisioning-setup" class="py-16 bg-white border-b border-slate-200/80">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Deployment Manual</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-4">
+                        Step-by-Step Station Setup &amp; Provisioning
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Follow this workflow to flash firmware, authenticate keys, and pair new weather hardware with the Mateo Zero-Trust network.
+                    </p>
+                </div>
+
+                <!-- 4 Step Workflow -->
+                <div class="space-y-6">
+                    <!-- Step 1 -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col md:flex-row gap-6 items-start">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center shrink-0">1</div>
+                        <div class="flex-1 space-y-2">
+                            <h3 class="text-lg font-bold text-slate-900">Flash Bare-Metal Firmware</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Connect your ESP32 board via USB-C. Clone the Mateo open-source repository and compile using PlatformIO or ESP-IDF v5.1+.
+                            </p>
+                            <div class="bg-slate-900 text-slate-200 p-3 rounded-lg font-mono text-xs overflow-x-auto">
+                                pio run -e esp32-c6-urban --target upload
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col md:flex-row gap-6 items-start">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center shrink-0">2</div>
+                        <div class="flex-1 space-y-2">
+                            <h3 class="text-lg font-bold text-slate-900">HMAC Key Exchange &amp; Cryptographic Provisioning</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                On first boot, the station enters AP Provisioning Mode (`Mateo-Setup-XXXX`). Connect via browser to <code class="bg-white px-1 rounded border border-slate-200">http://192.168.4.1</code>. The station sends a CSR request to `/api/v1/provision` and receives its cryptographically signed HMAC secret key stored in ESP32 NVS flash.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col md:flex-row gap-6 items-start">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center shrink-0">3</div>
+                        <div class="flex-1 space-y-2">
+                            <h3 class="text-lg font-bold text-slate-900">Physical Mast Mounting &amp; Leveling</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Mount the station on a vertical mast 1.5 to 2.0 meters above ground level over natural grass/soil (avoid black asphalt or metal roofs). Align solar panel south (Northern Hemisphere) or north (Southern Hemisphere) at an angle equal to your local latitude + 15°.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col md:flex-row gap-6 items-start">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center shrink-0">4</div>
+                        <div class="flex-1 space-y-2">
+                            <h3 class="text-lg font-bold text-slate-900">SQI Initialization &amp; Public Map Live Validation</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Once telemetry begins flowing, the station starts with an initial SQI score of 80%. After 24 hours of clean spatial IDW cross-validation against neighboring stations, it achieves Platinum status (95%+) and appears on the public live vector map.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Interactive Solar & Battery Sizing Calculator -->
+        <section id="calculator" class="py-16 bg-slate-50 border-b border-slate-200/80">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Interactive Tool</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-3">
+                        Solar Panel &amp; Battery Runtime Estimator
+                    </h2>
+                    <p class="text-sm text-slate-600">
+                        Calculate estimated battery autonomy during consecutive dark, rainy days based on sleep interval and panel sizing.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                        <div>
+                            <label for="calc-battery" class="block text-xs font-bold uppercase text-slate-700 mb-2">Battery Capacity (mAh)</label>
+                            <select id="calc-battery" class="w-full p-2.5 rounded-lg border border-slate-300 text-sm font-mono bg-white">
+                                <option value="1500">1500 mAh (18650 LiFePO4)</option>
+                                <option value="3000" selected>3000 mAh (26650 LiFePO4)</option>
+                                <option value="6000">6000 mAh (Dual 26650)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="calc-interval" class="block text-xs font-bold uppercase text-slate-700 mb-2">TX Sleep Interval</label>
+                            <select id="calc-interval" class="w-full p-2.5 rounded-lg border border-slate-300 text-sm font-mono bg-white">
+                                <option value="2">Every 2 Minutes (High-Freq)</option>
+                                <option value="5" selected>Every 5 Minutes (Standard)</option>
+                                <option value="10">Every 10 Minutes (Power Saver)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="calc-solar" class="block text-xs font-bold uppercase text-slate-700 mb-2">Solar Panel Rating</label>
+                            <select id="calc-solar" class="w-full p-2.5 rounded-lg border border-slate-300 text-sm font-mono bg-white">
+                                <option value="1">1 Watt 5V Mini Panel</option>
+                                <option value="2" selected>2 Watt 5V Solar Panel</option>
+                                <option value="5">5 Watt 5V Rigid Panel</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">ESTIMATED DAILY CONSUMPTION:</span>
+                            <span class="font-bold text-teal-400" id="calc-result-consumption">~24.8 mAh / day</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-slate-400">AUTONOMY WITHOUT SUNLIGHT (DARK DAYS):</span>
+                            <span class="font-bold text-emerald-400" id="calc-result-autonomy">121 Days</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-slate-400">SUNSHINE NEEDED TO RECHARGE 1 DAY:</span>
+                            <span class="font-bold text-amber-400" id="calc-result-recharge">~18 Minutes of Sun</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Troubleshooting & Diagnostics Guide -->
+        <section id="troubleshooting" class="py-16 bg-white border-b border-slate-200/80">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-teal-700 block mb-2">Maintenance</span>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight mb-3">
+                        Troubleshooting &amp; Diagnostics
+                    </h2>
+                    <p class="text-sm text-slate-600">
+                        Quick fixes for common field assembly and network transmission issues.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <details class="group bg-slate-50 rounded-xl border border-slate-200" name="trouble-group" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 text-sm">
+                            <span>Status LED Blinks 3 Times Red: Low Voltage Brownout Protection</span>
+                            <span class="text-slate-400 group-hover:text-slate-700">+</span>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/60 pt-3">
+                            The battery voltage has dropped below 2.9V. The ESP32 will enter protective deep sleep for 4 hours to prevent cell degradation. Check solar panel connections or clean dust off the solar glass face.
+                        </div>
+                    </details>
+
+                    <details class="group bg-slate-50 rounded-xl border border-slate-200" name="trouble-group">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 text-sm">
+                            <span>BME280 Reading Static Temperature or -999 Error</span>
+                            <span class="text-slate-400 group-hover:text-slate-700">+</span>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/60 pt-3">
+                            Check I2C SDA/SCL pull-up resistors (4.7kΩ to 3.3V). Ensure I2C address jumper on BME280 module is set correctly (`0x76` or `0x77`).
+                        </div>
+                    </details>
+
+                    <details class="group bg-slate-50 rounded-xl border border-slate-200" name="trouble-group">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 text-sm">
+                            <span>Home Deck SD Card Write Error (Node B)</span>
+                            <span class="text-slate-400 group-hover:text-slate-700">+</span>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-200/60 pt-3">
+                            Re-format the microSD card using FAT32 with 32KB allocation unit size. Firmware automatically executes chkdsk repair routines on boot if unclean unmounts occur.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Brand & Info -->
+                <div class="flex items-center gap-3">
+                    <img src="../src/img/mateologo.svg" alt="Mateo Logo"
+                        class="w-8 h-8 rounded-lg object-contain border border-slate-200/80 shadow-2xs">
+                    <span class="text-sm font-semibold text-slate-900">Mateo Network</span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-xs text-slate-500">Filip Vastl</span>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-xs text-slate-400">
+                    &copy; 2026 Mateo Network &amp; Public Good
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Pure Client-Side JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = document.getElementById('menu-icon-open');
+        const closeIcon = document.getElementById('menu-icon-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                if (isOpen) {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    openIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // Solar Calculator Interactive Logic
+        const calcBattery = document.getElementById('calc-battery');
+        const calcInterval = document.getElementById('calc-interval');
+        const calcSolar = document.getElementById('calc-solar');
+
+        const resConsumption = document.getElementById('calc-result-consumption');
+        const resAutonomy = document.getElementById('calc-result-autonomy');
+        const resRecharge = document.getElementById('calc-result-recharge');
+
+        function updateCalculator() {
+            if (!calcBattery || !calcInterval || !calcSolar) return;
+
+            const batteryMah = parseFloat(calcBattery.value);
+            const intervalMin = parseFloat(calcInterval.value);
+            const solarWatts = parseFloat(calcSolar.value);
+
+            // Calculations
+            // Base sleep current = 0.007 mA
+            // Wake burst = 180mA for 0.05s
+            const burstsPerDay = (24 * 60) / intervalMin;
+            const burstMahPerDay = burstsPerDay * (180 * (0.05 / 3600));
+            const sleepMahPerDay = 0.007 * 24;
+            const totalDailyMah = burstMahPerDay + sleepMahPerDay;
+
+            // Days without sun
+            const autonomyDays = Math.floor(batteryMah / totalDailyMah);
+
+            // Minutes of 5V sun needed to recover 1 day's consumption (charging efficiency ~70%)
+            const solarCurrentMa = (solarWatts / 5) * 1000 * 0.7; // Effective charging mA
+            const rechargeMinutes = Math.ceil((totalDailyMah / solarCurrentMa) * 60);
+
+            resConsumption.textContent = `~${totalDailyMah.toFixed(1)} mAh / day`;
+            resAutonomy.textContent = `${autonomyDays} Days`;
+            resRecharge.textContent = `~${rechargeMinutes} Minutes of Sun`;
+        }
+
+        if (calcBattery && calcInterval && calcSolar) {
+            calcBattery.addEventListener('change', updateCalculator);
+            calcInterval.addEventListener('change', updateCalculator);
+            calcSolar.addEventListener('change', updateCalculator);
+            updateCalculator();
+        }
+    </script>
+</body>
+
+</html>
